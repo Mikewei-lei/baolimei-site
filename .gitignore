@@ -1,0 +1,15 @@
+node_modules/
+.next/
+out/
+build/
+.env
+.env.local
+.env*.local
+.vercel
+*.log
+.DS_Store
+Thumbs.db
+
+# 本地临时隧道工具
+tools/cloudflared.exe
+tools/tunnel.log

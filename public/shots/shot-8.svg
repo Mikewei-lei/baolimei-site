@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="长夜将尽">
+  <defs>
+    <radialGradient id="g0" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ff7a59" stop-opacity=".9"/><stop offset="100%" stop-color="#ff7a59" stop-opacity="0"/></radialGradient>
+    <radialGradient id="g1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#33110a" stop-opacity="1"/><stop offset="100%" stop-color="#33110a" stop-opacity="0"/></radialGradient>
+    <radialGradient id="g2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ffffff" stop-opacity=".35"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="vig" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0c0908" stop-opacity="0"/><stop offset="100%" stop-color="#0c0908" stop-opacity=".95"/></linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="70"/></filter>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+  </defs>
+  <rect width="100%" height="100%" fill="#0c0908"/>
+  <g filter="url(#blur)"><circle cx="468" cy="210" r="174" fill="url(#g0)" opacity="0.3"/><circle cx="1073" cy="229" r="402" fill="url(#g1)" opacity="0.48"/><circle cx="837" cy="239" r="227" fill="url(#g2)" opacity="0.26"/><circle cx="330" cy="619" r="231" fill="url(#g0)" opacity="0.4"/></g>
+  <g><line x1="398" y1="0" x2="442" y2="720" stroke="#ff7a59" stroke-opacity="0.10" stroke-width="1"/><line x1="57" y1="0" x2="60" y2="720" stroke="#ff7a59" stroke-opacity="0.10" stroke-width="1"/><line x1="435" y1="0" x2="396" y2="720" stroke="#ff7a59" stroke-opacity="0.10" stroke-width="1"/><line x1="1026" y1="0" x2="1040" y2="720" stroke="#ff7a59" stroke-opacity="0.10" stroke-width="1"/><line x1="1201" y1="0" x2="1128" y2="720" stroke="#ff7a59" stroke-opacity="0.10" stroke-width="1"/><line x1="531" y1="0" x2="362" y2="720" stroke="#ff7a59" stroke-opacity="0.10" stroke-width="1"/><line x1="268" y1="0" x2="466" y2="720" stroke="#ff7a59" stroke-opacity="0.10" stroke-width="1"/><line x1="724" y1="0" x2="515" y2="720" stroke="#ff7a59" stroke-opacity="0.10" stroke-width="1"/><line x1="1194" y1="0" x2="1024" y2="720" stroke="#ff7a59" stroke-opacity="0.10" stroke-width="1"/><circle cx="640" cy="360" r="280" fill="none" stroke="#ff7a59" stroke-opacity="0.100" stroke-width="1"/><circle cx="640" cy="360" r="370" fill="none" stroke="#ff7a59" stroke-opacity="0.088" stroke-width="1"/><circle cx="640" cy="360" r="460" fill="none" stroke="#ff7a59" stroke-opacity="0.076" stroke-width="1"/><circle cx="640" cy="360" r="550" fill="none" stroke="#ff7a59" stroke-opacity="0.064" stroke-width="1"/></g>
+  <rect width="100%" height="100%" fill="url(#vig)"/>
+  <rect width="100%" height="100%" filter="url(#grain)" opacity=".10"/>
+  <text x="64" y="602" fill="#f4f5f2" font-family="PingFang SC,Microsoft YaHei,Noto Sans SC,sans-serif" font-size="52" font-weight="600" letter-spacing="2">长夜将尽</text>
+  <text x="66" y="642" fill="#ff7a59" font-family="Inter,Helvetica,Arial,sans-serif" font-size="16" letter-spacing="6" opacity=".85">THE LONG NIGHT</text>
+  <text x="1216" y="642" fill="#ffffff" fill-opacity=".45" text-anchor="end" font-family="Inter,Helvetica,Arial,sans-serif" font-size="14" letter-spacing="3">BAOLIMEI / 04s</text>
+</svg>

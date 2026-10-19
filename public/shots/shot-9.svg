@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="雾中列车">
+  <defs>
+    <radialGradient id="g0" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#8ab4ff" stop-opacity=".9"/><stop offset="100%" stop-color="#8ab4ff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="g1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#0a1733" stop-opacity="1"/><stop offset="100%" stop-color="#0a1733" stop-opacity="0"/></radialGradient>
+    <radialGradient id="g2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ffffff" stop-opacity=".35"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="vig" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#080a0f" stop-opacity="0"/><stop offset="100%" stop-color="#080a0f" stop-opacity=".95"/></linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="70"/></filter>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+  </defs>
+  <rect width="100%" height="100%" fill="#080a0f"/>
+  <g filter="url(#blur)"><circle cx="1147" cy="213" r="237" fill="url(#g0)" opacity="0.43"/><circle cx="158" cy="530" r="253" fill="url(#g1)" opacity="0.46"/><circle cx="426" cy="256" r="232" fill="url(#g2)" opacity="0.42"/><circle cx="366" cy="143" r="326" fill="url(#g0)" opacity="0.49"/></g>
+  <g><line x1="1086" y1="0" x2="852" y2="720" stroke="#8ab4ff" stroke-opacity="0.10" stroke-width="1"/><line x1="217" y1="0" x2="419" y2="720" stroke="#8ab4ff" stroke-opacity="0.10" stroke-width="1"/><line x1="508" y1="0" x2="573" y2="720" stroke="#8ab4ff" stroke-opacity="0.10" stroke-width="1"/><line x1="567" y1="0" x2="784" y2="720" stroke="#8ab4ff" stroke-opacity="0.10" stroke-width="1"/><line x1="200" y1="0" x2="-59" y2="720" stroke="#8ab4ff" stroke-opacity="0.10" stroke-width="1"/><line x1="926" y1="0" x2="1158" y2="720" stroke="#8ab4ff" stroke-opacity="0.10" stroke-width="1"/><line x1="129" y1="0" x2="-64" y2="720" stroke="#8ab4ff" stroke-opacity="0.10" stroke-width="1"/><line x1="666" y1="0" x2="409" y2="720" stroke="#8ab4ff" stroke-opacity="0.10" stroke-width="1"/><line x1="1241" y1="0" x2="1297" y2="720" stroke="#8ab4ff" stroke-opacity="0.10" stroke-width="1"/><circle cx="640" cy="360" r="280" fill="none" stroke="#8ab4ff" stroke-opacity="0.100" stroke-width="1"/><circle cx="640" cy="360" r="370" fill="none" stroke="#8ab4ff" stroke-opacity="0.088" stroke-width="1"/><circle cx="640" cy="360" r="460" fill="none" stroke="#8ab4ff" stroke-opacity="0.076" stroke-width="1"/><circle cx="640" cy="360" r="550" fill="none" stroke="#8ab4ff" stroke-opacity="0.064" stroke-width="1"/></g>
+  <rect width="100%" height="100%" fill="url(#vig)"/>
+  <rect width="100%" height="100%" filter="url(#grain)" opacity=".10"/>
+  <text x="64" y="602" fill="#f4f5f2" font-family="PingFang SC,Microsoft YaHei,Noto Sans SC,sans-serif" font-size="52" font-weight="600" letter-spacing="2">雾中列车</text>
+  <text x="66" y="642" fill="#8ab4ff" font-family="Inter,Helvetica,Arial,sans-serif" font-size="16" letter-spacing="6" opacity=".85">TRAIN IN FOG</text>
+  <text x="1216" y="642" fill="#ffffff" fill-opacity=".45" text-anchor="end" font-family="Inter,Helvetica,Arial,sans-serif" font-size="14" letter-spacing="3">BAOLIMEI / 04s</text>
+</svg>

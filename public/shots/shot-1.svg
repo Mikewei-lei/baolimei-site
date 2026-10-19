@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="霓虹之后">
+  <defs>
+    <radialGradient id="g0" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#d8ff3b" stop-opacity=".9"/><stop offset="100%" stop-color="#d8ff3b" stop-opacity="0"/></radialGradient>
+    <radialGradient id="g1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1b3a00" stop-opacity="1"/><stop offset="100%" stop-color="#1b3a00" stop-opacity="0"/></radialGradient>
+    <radialGradient id="g2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ffffff" stop-opacity=".35"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="vig" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a0b0e" stop-opacity="0"/><stop offset="100%" stop-color="#0a0b0e" stop-opacity=".95"/></linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="70"/></filter>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+  </defs>
+  <rect width="100%" height="100%" fill="#0a0b0e"/>
+  <g filter="url(#blur)"><circle cx="783" cy="234" r="362" fill="url(#g0)" opacity="0.48"/><circle cx="268" cy="628" r="208" fill="url(#g1)" opacity="0.38"/><circle cx="238" cy="599" r="269" fill="url(#g2)" opacity="0.26"/><circle cx="1008" cy="508" r="195" fill="url(#g0)" opacity="0.33"/></g>
+  <g><line x1="1128" y1="0" x2="954" y2="720" stroke="#d8ff3b" stroke-opacity="0.10" stroke-width="1"/><line x1="121" y1="0" x2="255" y2="720" stroke="#d8ff3b" stroke-opacity="0.10" stroke-width="1"/><line x1="457" y1="0" x2="654" y2="720" stroke="#d8ff3b" stroke-opacity="0.10" stroke-width="1"/><line x1="1181" y1="0" x2="1035" y2="720" stroke="#d8ff3b" stroke-opacity="0.10" stroke-width="1"/><line x1="101" y1="0" x2="135" y2="720" stroke="#d8ff3b" stroke-opacity="0.10" stroke-width="1"/><line x1="95" y1="0" x2="219" y2="720" stroke="#d8ff3b" stroke-opacity="0.10" stroke-width="1"/><line x1="593" y1="0" x2="424" y2="720" stroke="#d8ff3b" stroke-opacity="0.10" stroke-width="1"/><line x1="295" y1="0" x2="435" y2="720" stroke="#d8ff3b" stroke-opacity="0.10" stroke-width="1"/><line x1="1169" y1="0" x2="1114" y2="720" stroke="#d8ff3b" stroke-opacity="0.10" stroke-width="1"/><circle cx="640" cy="360" r="280" fill="none" stroke="#d8ff3b" stroke-opacity="0.100" stroke-width="1"/><circle cx="640" cy="360" r="370" fill="none" stroke="#d8ff3b" stroke-opacity="0.088" stroke-width="1"/><circle cx="640" cy="360" r="460" fill="none" stroke="#d8ff3b" stroke-opacity="0.076" stroke-width="1"/><circle cx="640" cy="360" r="550" fill="none" stroke="#d8ff3b" stroke-opacity="0.064" stroke-width="1"/></g>
+  <rect width="100%" height="100%" fill="url(#vig)"/>
+  <rect width="100%" height="100%" filter="url(#grain)" opacity=".10"/>
+  <text x="64" y="602" fill="#f4f5f2" font-family="PingFang SC,Microsoft YaHei,Noto Sans SC,sans-serif" font-size="52" font-weight="600" letter-spacing="2">霓虹之后</text>
+  <text x="66" y="642" fill="#d8ff3b" font-family="Inter,Helvetica,Arial,sans-serif" font-size="16" letter-spacing="6" opacity=".85">NEON AFTERGLOW</text>
+  <text x="1216" y="642" fill="#ffffff" fill-opacity=".45" text-anchor="end" font-family="Inter,Helvetica,Arial,sans-serif" font-size="14" letter-spacing="3">BAOLIMEI / 04s</text>
+</svg>

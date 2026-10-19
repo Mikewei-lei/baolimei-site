@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="深潜">
+  <defs>
+    <radialGradient id="g0" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#4ade80" stop-opacity=".9"/><stop offset="100%" stop-color="#4ade80" stop-opacity="0"/></radialGradient>
+    <radialGradient id="g1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#062b18" stop-opacity="1"/><stop offset="100%" stop-color="#062b18" stop-opacity="0"/></radialGradient>
+    <radialGradient id="g2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ffffff" stop-opacity=".35"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="vig" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#070b09" stop-opacity="0"/><stop offset="100%" stop-color="#070b09" stop-opacity=".95"/></linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="70"/></filter>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+  </defs>
+  <rect width="100%" height="100%" fill="#070b09"/>
+  <g filter="url(#blur)"><circle cx="662" cy="570" r="242" fill="url(#g0)" opacity="0.43"/><circle cx="540" cy="620" r="345" fill="url(#g1)" opacity="0.3"/><circle cx="175" cy="620" r="312" fill="url(#g2)" opacity="0.59"/><circle cx="306" cy="347" r="347" fill="url(#g0)" opacity="0.57"/></g>
+  <g><line x1="728" y1="0" x2="760" y2="720" stroke="#4ade80" stroke-opacity="0.10" stroke-width="1"/><line x1="1090" y1="0" x2="836" y2="720" stroke="#4ade80" stroke-opacity="0.10" stroke-width="1"/><line x1="675" y1="0" x2="707" y2="720" stroke="#4ade80" stroke-opacity="0.10" stroke-width="1"/><line x1="1255" y1="0" x2="1316" y2="720" stroke="#4ade80" stroke-opacity="0.10" stroke-width="1"/><line x1="490" y1="0" x2="340" y2="720" stroke="#4ade80" stroke-opacity="0.10" stroke-width="1"/><line x1="464" y1="0" x2="520" y2="720" stroke="#4ade80" stroke-opacity="0.10" stroke-width="1"/><line x1="1060" y1="0" x2="816" y2="720" stroke="#4ade80" stroke-opacity="0.10" stroke-width="1"/><line x1="728" y1="0" x2="959" y2="720" stroke="#4ade80" stroke-opacity="0.10" stroke-width="1"/><line x1="57" y1="0" x2="31" y2="720" stroke="#4ade80" stroke-opacity="0.10" stroke-width="1"/><circle cx="640" cy="360" r="280" fill="none" stroke="#4ade80" stroke-opacity="0.100" stroke-width="1"/><circle cx="640" cy="360" r="370" fill="none" stroke="#4ade80" stroke-opacity="0.088" stroke-width="1"/><circle cx="640" cy="360" r="460" fill="none" stroke="#4ade80" stroke-opacity="0.076" stroke-width="1"/><circle cx="640" cy="360" r="550" fill="none" stroke="#4ade80" stroke-opacity="0.064" stroke-width="1"/></g>
+  <rect width="100%" height="100%" fill="url(#vig)"/>
+  <rect width="100%" height="100%" filter="url(#grain)" opacity=".10"/>
+  <text x="64" y="602" fill="#f4f5f2" font-family="PingFang SC,Microsoft YaHei,Noto Sans SC,sans-serif" font-size="52" font-weight="600" letter-spacing="2">深潜</text>
+  <text x="66" y="642" fill="#4ade80" font-family="Inter,Helvetica,Arial,sans-serif" font-size="16" letter-spacing="6" opacity=".85">DEEP DIVE</text>
+  <text x="1216" y="642" fill="#ffffff" fill-opacity=".45" text-anchor="end" font-family="Inter,Helvetica,Arial,sans-serif" font-size="14" letter-spacing="3">BAOLIMEI / 04s</text>
+</svg>
