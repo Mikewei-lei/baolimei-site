@@ -84,7 +84,25 @@ NEXT_PUBLIC_COMPANY=葆历莓（北京）科技有限公司
 - 过渡：阿里云**香港**轻量应用服务器，镜像选 Ubuntu 22.04，开放 80/443。
 - 最终：阿里云**内地** ECS 或轻量（2核2G 起），**必须已完成备案**，安全组放行 80/443/22。
 
-### 4.2 上传并启动
+### 4.2 小内存机器先加 swap（2核2G 必看）
+
+`next build` 在 2G 内存上可能被 OOM 杀掉，先加 2G swap：
+
+```bash
+fallocate -l 2G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile
+echo '/swapfile none swap sw 0 0' >> /etc/fstab
+free -h
+```
+
+或者在本机构建好镜像再传上去：
+
+```bash
+docker build -t baolimei/web:latest .
+docker save baolimei/web:latest | gzip | ssh root@<服务器IP> 'gunzip | docker load'
+ssh root@<服务器IP> 'cd /srv/baolimei && docker compose up -d'
+```
+
+### 4.3 上传并启动
 
 ```bash
 # 服务器上
@@ -99,7 +117,7 @@ bash deploy/deploy.sh
 
 看到 `✓ 服务已启动：http://127.0.0.1:3000` 后，本机 `curl http://127.0.0.1:3000/api/health` 应返回 `"ok": true`。
 
-### 4.3 Nginx 反代 + HTTPS
+### 4.4 Nginx 反代 + HTTPS
 
 ```bash
 cp deploy/nginx.conf /etc/nginx/conf.d/baolimei.conf
@@ -114,7 +132,7 @@ certbot --nginx -d baolimei.cn -d www.baolimei.cn
 # 然后把 nginx.conf 里的 ssl_certificate 路径改成实际文件
 ```
 
-### 4.4 加解析（备案下号后再做）
+### 4.5 加解析（备案下号后再做）
 
 阿里云控制台 → 云解析 DNS → `baolimei.cn` → 解析设置：
 

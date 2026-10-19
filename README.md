@@ -66,6 +66,16 @@ docker-compose.yml
 内测版本**没有数据库**：作品库与画布项目保存在浏览器 `localStorage`，换设备/清缓存会丢失。
 正式上线前需要接入账号体系与对象存储（建议：阿里云 OSS + RDS/Redis，或 Supabase）。
 
+## 更换 LOGO
+
+```bash
+python scripts/set-logo.py "D:\path\to\logo.png"
+npm run build && npm start
+```
+
+脚本会自动裁掉白底/透明留白，生成 `logo.png`、`logo-square.png`、`icon.png`、`apple-icon.png`、
+`favicon.ico` 与 1200×630 的 `og.jpg`（深色底 + 品牌名）。原图建议用透明底 PNG 或 SVG 导出的 PNG。
+
 ## 部署
 
 见 [DEPLOY.md](./DEPLOY.md)，包含 DNS、备案、HTTPS、Nginx、Docker、Vercel 的全部步骤与注意事项。
