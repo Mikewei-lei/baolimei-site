@@ -49,11 +49,22 @@ export async function POST(request) {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ error: '请求格式不正确' }, { status: 400 });
+    return NextResponse.json({ error: '请求体不是合法的 JSON' }, { status: 400 });
+  }
+
+  if (typeof body?.prompt === 'string' && body.prompt.length > 1200) {
+    return NextResponse.json({ error: '提示词过长，最多 900 字' }, { status: 400 });
   }
 
   const prompt = sanitizePrompt(body?.prompt);
-  const model = models.find((m) => m.id === body?.model) || models[0];
+  const requested = models.find((m) => m.id === body?.model);
+  if (body?.model && !requested) {
+    return NextResponse.json(
+      { error: '模型不存在或已下线，请刷新页面后重试', code: 'UNKNOWN_MODEL' },
+      { status: 400 }
+    );
+  }
+  const model = requested || models[0];
 
   if (!prompt && !body?.image) {
     return NextResponse.json({ error: '请先描述你的镜头' }, { status: 400 });

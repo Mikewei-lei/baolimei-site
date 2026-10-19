@@ -78,4 +78,6 @@ npm run build && npm start
 
 ## 部署
 
-见 [DEPLOY.md](./DEPLOY.md)，包含 DNS、备案、HTTPS、Nginx、Docker、Vercel 的全部步骤与注意事项。
+- 当前生产部署状态与验证证据：[DEPLOYED.md](./DEPLOYED.md)
+- 通用部署手册（DNS、备案、HTTPS、Nginx、Docker、Vercel）：[DEPLOY.md](./DEPLOY.md)
+- 目标部署检查清单：[DEPLOYMENT_CHECKLIST.md](./DEPLOYMENT_CHECKLIST.md)

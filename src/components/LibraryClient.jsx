@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { KEYS, readJSON, writeJSON, timeAgo, pushInbox } from '@/lib/store';
 import { Download, Canvas, Trash, Play } from '@/components/Icons';
@@ -10,12 +10,28 @@ export default function LibraryClient() {
   const [filter, setFilter] = useState('all');
   const [active, setActive] = useState(null);
   const [hydrated, setHydrated] = useState(false);
+  const closeRef = useRef(null);
 
   useEffect(() => {
     const saved = readJSON(KEYS.history, []);
     setSessions(Array.isArray(saved) ? saved.filter((s) => s.status === 'succeeded') : []);
     setHydrated(true);
   }, []);
+
+  useEffect(() => {
+    if (!active) return;
+    closeRef.current?.focus();
+    const onKey = (e) => {
+      if (e.key === 'Escape') setActive(null);
+    };
+    window.addEventListener('keydown', onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [active]);
 
   const items = useMemo(() => {
     const flat = [];
@@ -112,7 +128,7 @@ export default function LibraryClient() {
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <div className="modal__head">
               <h3>{active.session.modelName} · SEED {active.seed}</h3>
-              <button className="icon-btn" onClick={() => setActive(null)} aria-label="关闭">
+              <button ref={closeRef} className="icon-btn" onClick={() => setActive(null)} aria-label="关闭预览">
                 ×
               </button>
             </div>

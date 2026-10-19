@@ -100,6 +100,7 @@ export default function CanvasClient() {
   const [drag, setDrag] = useState(null);
   const [inbox, setInbox] = useState([]);
   const [savedAt, setSavedAt] = useState(null);
+  const [saveError, setSaveError] = useState(false);
   const [uploadTarget, setUploadTarget] = useState(null);
   const [hydrated, setHydrated] = useState(false);
   const saveTimer = useRef(null);
@@ -128,6 +129,7 @@ export default function CanvasClient() {
     clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(() => {
       const ok = writeJSON(KEYS.canvas, { nodes, edges, view, updatedAt: Date.now() });
+      setSaveError(!ok);
       if (ok) setSavedAt(Date.now());
     }, 400);
     return () => clearTimeout(saveTimer.current);
@@ -482,6 +484,7 @@ export default function CanvasClient() {
                   {n.type === 'prompt' || n.type === 'text' ? (
                     <textarea
                       value={n.text}
+                      aria-label={n.type === 'prompt' ? '镜头描述' : '文本内容'}
                       placeholder={n.type === 'prompt' ? '写下镜头描述…' : '写点什么…'}
                       onChange={(e) => update(n.id, { text: e.target.value })}
                       style={{ height: TEXT_H }}
@@ -574,6 +577,7 @@ export default function CanvasClient() {
                   {n.type === 'image' || n.type === 'video' ? (
                     <input
                       value={n.text}
+                      aria-label="镜头说明"
                       placeholder="镜头说明（可选）"
                       onChange={(e) => update(n.id, { text: e.target.value })}
                       style={{ marginTop: 8 }}
@@ -675,9 +679,18 @@ export default function CanvasClient() {
         </button>
         <span
           className="mono"
-          style={{ fontSize: 10, color: 'var(--muted-2)', padding: '0 6px', whiteSpace: 'nowrap' }}
+          style={{
+          fontSize: 10,
+          color: saveError ? 'var(--danger)' : 'var(--muted-2)',
+          padding: '0 6px',
+          whiteSpace: 'nowrap',
+        }}
         >
-          {savedAt ? `已保存 · ${new Date(savedAt).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}` : '自动保存'}
+          {saveError
+            ? '保存失败 · 浏览器存储已满'
+            : savedAt
+              ? `已保存 · ${new Date(savedAt).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}`
+              : '自动保存'}
         </span>
       </div>
 

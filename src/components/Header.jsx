@@ -37,7 +37,12 @@ export default function Header() {
 
           <nav className="nav" aria-label="主导航">
             {nav.map((item) => (
-              <Link key={item.href} href={item.href} className={isActive(item.href) ? 'is-active' : ''}>
+              <Link
+                key={item.href}
+                href={item.href}
+                className={isActive(item.href) ? 'is-active' : ''}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
                 {item.label}
               </Link>
             ))}

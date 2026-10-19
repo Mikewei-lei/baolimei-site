@@ -1,0 +1,21 @@
+[Unit]
+Description=Baolimei Web (Next.js standalone)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/baolimei/current
+Environment=NODE_ENV=production PORT=3001 HOSTNAME=127.0.0.1 NEXT_TELEMETRY_DISABLED=1 GENERATION_MOCK=1 NEXT_PUBLIC_SITE_URL=https://baolimei.cn
+ExecStart=/opt/baolimei/node/bin/node server.js
+Restart=always
+RestartSec=3
+User=www
+Group=www
+NoNewPrivileges=true
+PrivateTmp=true
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=baolimei
+
+[Install]
+WantedBy=multi-user.target

@@ -13,3 +13,6 @@ Thumbs.db
 # 本地临时隧道工具
 tools/cloudflared.exe
 tools/tunnel.log
+
+# 临时分发目录（构建产物上传用）
+public/dl/

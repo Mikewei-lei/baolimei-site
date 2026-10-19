@@ -54,7 +54,7 @@ export default function Footer() {
 
           {groups.map((g) => (
             <div key={g.title}>
-              <h4>{g.title}</h4>
+              <h2>{g.title}</h2>
               <ul>
                 {g.links.map((l) => (
                   <li key={l.href}>

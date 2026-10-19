@@ -97,9 +97,17 @@ export default function StudioClient() {
     timers.current.add(timer);
   }, []);
 
-  const persist = useCallback((list) => {
-    writeJSON(KEYS.history, list.slice(0, MAX_SESSIONS));
-  }, []);
+  const persist = useCallback(
+    (list) => {
+      const ok = writeJSON(KEYS.history, list.slice(0, MAX_SESSIONS));
+      if (!ok) {
+        // 避免在 setState updater 中同步触发更新
+        setTimeout(() => toast('浏览器存储空间不足，历史记录可能无法保存'), 0);
+      }
+      return ok;
+    },
+    [toast]
+  );
 
   const updateSession = useCallback(
     (key, patch) => {
@@ -571,7 +579,7 @@ export default function StudioClient() {
         )}
       </section>
 
-      <div className="toast-wrap">
+      <div className="toast-wrap" role="status" aria-live="polite">
         {toasts.map((t) => (
           <div className="toast" key={t.id}>
             {t.text}

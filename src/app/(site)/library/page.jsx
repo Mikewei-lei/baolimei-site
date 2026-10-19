@@ -4,6 +4,7 @@ import LibraryClient from '@/components/LibraryClient';
 export const metadata = {
   title: '作品库',
   description: '查看你在葆历莓生成的全部镜头与短片，支持下载、加入画布与二次编辑。',
+  alternates: { canonical: '/library' },
 };
 
 export default function LibraryPage() {

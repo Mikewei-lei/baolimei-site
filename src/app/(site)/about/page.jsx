@@ -4,6 +4,7 @@ import { site } from '@/lib/site';
 export const metadata = {
   title: '关于我们',
   description: '葆历莓 BAOLIMEI 是一支由影视创作者与 AI 工程师组成的团队，致力于把生成式 AI 变成真正可用的影视生产工具。',
+  alternates: { canonical: '/about' },
 };
 
 export default function AboutPage() {
