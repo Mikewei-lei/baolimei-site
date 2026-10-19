@@ -237,3 +237,40 @@ R=/opt/baolimei/releases/$(date +%Y%m%d-%H%M); mkdir -p $R
 cp -a .next/standalone/. $R/; chown -R www:www $R
 ln -sfn $R /opt/baolimei/current && systemctl restart baolimei
 ```
+
+
+---
+
+## 10. FAQ：baolimei.cn 到底能不能用？
+
+**能，但要等备案下号。** 域名、解析、服务器、Nginx、应用全部就绪，唯一卡点是阿里云备案合规拦截。
+
+已验证事实：
+
+| 检查 | 结果 |
+| --- | --- |
+| DNS A 记录 | `baolimei.cn` / `www` → `8.135.56.14` ✅ |
+| 服务器应用 | `127.0.0.1:3001` 健康 ✅ |
+| Nginx 按 Host 访问 | 200 ✅（服务器内部） |
+| 公网 `http://baolimei.cn/` | **403 `Non-compliance ICP Filing`**（Server: Beaver） |
+| 同 IP 已备案域名 `floweriver.cn` | 301/200 ✅ |
+
+结论：403 来自阿里云备案系统，请求未到达 Nginx。**任何代码/Nginx/DNS 改动都无法解除**，只能等备案通过。
+
+### 备案下号后的动作（预计 5 分钟内完成）
+
+1. 阿里云自动放行，HTTP 立即恢复；
+2. 我执行 `acme.sh` 签发证书（HTTP-01 此时可通过）；
+3. 启用 `deploy/nginx-baolimei.conf` 里的 443 配置 + HSTS + www 跳转；
+4. 用备案号重建（页脚显示备案号，约 2 分钟）；
+5. 删除 IP 预览入口。
+
+### 现在可以自查的三件事
+
+- 阿里云备案控制台 → 我的备案：状态是否「管局审核中」，域名列表是否包含 `baolimei.cn` 与 `www.baolimei.cn`；
+- 是否收到并完成**管局短信核验**（未完成会被退回）；
+- 备案主体全称是否与营业执照、域名实名认证一致。
+
+### 不建议做的事
+
+443 端口的 TLS 握手目前未被拦截，理论上装证书后 HTTPS 可能可访问；但这是**规避备案监管**，可能导致服务器被封停、备案被退回。不做。
