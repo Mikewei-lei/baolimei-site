@@ -7,7 +7,7 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://baolimei.cn',
   icp: process.env.NEXT_PUBLIC_ICP_BEIAN || '备案中',
   psb: process.env.NEXT_PUBLIC_PSB_BEIAN || '',
-  company: process.env.NEXT_PUBLIC_COMPANY || '葆历莓（北京）科技有限公司',
+  company: process.env.NEXT_PUBLIC_COMPANY || '流花',
   email: 'hello@baolimei.cn',
   copyright: `© ${new Date().getFullYear()} 葆历莓 BAOLIMEI`,
 };

@@ -58,7 +58,7 @@ npx vercel --prod         # 首次会问项目名，一路回车
 ```
 NEXT_PUBLIC_SITE_URL=https://<project>.vercel.app
 NEXT_PUBLIC_ICP_BEIAN=备案中
-NEXT_PUBLIC_COMPANY=葆历莓（北京）科技有限公司
+NEXT_PUBLIC_COMPANY=流花
 ```
 
 然后 Redeploy。
