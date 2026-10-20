@@ -4,8 +4,8 @@ import { site } from '@/lib/site';
 import { faqs } from '@/lib/content';
 
 export const metadata = {
-  title: '价格',
-  description: '葆历莓价格方案：体验版免费，创作者版 ¥99/月含 1200 积分，工作室版支持团队协作与 API。',
+  title: '定价',
+  description: '葆历莓定价方案：体验版免费，创作者版 ¥99/月含 1200 积分，工作室版支持团队协作与 API。',
   alternates: { canonical: '/pricing' },
 };
 

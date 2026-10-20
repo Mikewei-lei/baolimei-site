@@ -1,4 +1,8 @@
 import './globals.css';
+import './upgrade.css';
+import './canvas.css';
+import './readability.css';
+import AuthProvider from '@/components/auth/AuthProvider';
 import { site } from '@/lib/site';
 
 export const metadata = {
@@ -30,13 +34,13 @@ export const metadata = {
     locale: 'zh_CN',
     url: site.url,
     siteName: `${site.name} ${site.nameEn}`,
-    title: `${site.name} · 一句话，一支片`,
+    title: `${site.name} · 一句话，一部电影`,
     description: site.description,
     images: [{ url: '/brand/og.jpg', width: 1200, height: 630, alt: `${site.name} ${site.nameEn}` }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${site.name} · 一句话，一支片`,
+    title: `${site.name} · 一句话，一部电影`,
     description: site.description,
     images: ['/brand/og.jpg'],
   },
@@ -62,7 +66,9 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="zh-CN">
-      <body>{children}</body>
+      <body>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }

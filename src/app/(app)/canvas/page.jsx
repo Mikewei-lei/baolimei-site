@@ -1,4 +1,5 @@
-import CanvasClient from '@/components/CanvasClient';
+import CanvasFlow from '@/components/CanvasFlow';
+import '@xyflow/react/dist/style.css';
 
 export const metadata = {
   title: '无限画布',
@@ -10,7 +11,7 @@ export default function CanvasPage() {
   return (
     <>
       <h1 className="sr-only">葆历莓无限画布 · 节点式 AI 影视编排</h1>
-      <CanvasClient />
+      <CanvasFlow />
     </>
   );
 }

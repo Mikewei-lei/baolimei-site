@@ -93,7 +93,7 @@ export default function AboutPage() {
       <section className="container" style={{ padding: '52px 24px 90px' }}>
         <div className="cta">
           <h2>来拍第一个镜头</h2>
-          <p>注册即送体验积分，不需要信用卡。</p>
+          <p>内测期间免费体验完整创作流程，不需要信用卡。</p>
           <Link href="/studio" className="btn btn--primary btn--lg">
             进入创作台
           </Link>

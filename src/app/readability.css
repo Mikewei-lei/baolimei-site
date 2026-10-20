@@ -1,0 +1,477 @@
+/* Readability pass: minimum comfortable Chinese UI sizes. */
+body {
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.eyebrow {
+  font-size: 12px;
+}
+
+.lede {
+  font-size: 16.5px;
+  line-height: 1.8;
+}
+
+.h2 {
+  line-height: 1.22;
+}
+
+.btn {
+  font-size: 14.5px;
+}
+
+.btn--sm {
+  height: 36px;
+  font-size: 13px;
+  padding: 0 15px;
+}
+
+.btn--lg {
+  font-size: 16px;
+}
+
+.chip {
+  height: 32px;
+  font-size: 13px;
+}
+
+.nav a {
+  font-size: 14px;
+}
+
+.header__signin {
+  font-size: 13.5px;
+}
+
+.brand__cn {
+  font-size: 16.5px;
+}
+
+.brand__en {
+  font-size: 9.5px;
+}
+
+.status-dot {
+  font-size: 11.5px;
+}
+
+.user-menu__name,
+.user-menu__panel > a,
+.user-menu__panel > button {
+  font-size: 13.5px;
+}
+
+.user-menu__head strong {
+  font-size: 14px;
+}
+
+.user-menu__head > span {
+  font-size: 12px;
+}
+
+.user-menu__plan {
+  font-size: 10.5px;
+}
+
+/* Auth */
+.auth-brandbar__brand span {
+  font-size: 11.5px;
+}
+
+.auth-brandbar__brand em {
+  font-size: 8.5px;
+}
+
+.auth-dialog__intro .eyebrow {
+  font-size: 11px;
+}
+
+.auth-dialog--compact .auth-dialog__intro h2 {
+  font-size: 30px;
+}
+
+.auth-dialog--compact .auth-dialog__sub {
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.auth-badges span {
+  font-size: 11px;
+  padding: 4px 7px;
+}
+
+.auth-dialog--compact .auth-tabs {
+  height: 38px;
+}
+
+.auth-dialog--compact .auth-tabs button {
+  height: 30px;
+  font-size: 13.5px;
+}
+
+.auth-dialog--compact .auth-methods button {
+  height: 32px;
+  font-size: 13px;
+}
+
+.auth-dialog--compact .auth-field {
+  gap: 7px;
+  margin-bottom: 14px;
+}
+
+.auth-dialog--compact .auth-field > span {
+  font-size: 12px;
+}
+
+.auth-dialog--compact .auth-field .input {
+  height: 46px;
+  font-size: 15px;
+  border-radius: 10px;
+}
+
+.auth-dialog--compact .auth-code-row .btn {
+  height: 46px;
+  font-size: 12.5px;
+}
+
+.auth-dialog--compact .auth-check {
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.auth-dialog--compact .auth-submit {
+  height: 50px;
+  font-size: 15px;
+}
+
+.auth-dialog--compact .auth-dialog__foot {
+  font-size: 12px;
+}
+
+.auth-dialog--compact .auth-error,
+.auth-dialog--compact .auth-notice,
+.auth-dialog--compact .auth-dev-code {
+  font-size: 12px;
+}
+
+.auth-dialog--compact .auth-dev-code b {
+  font-size: 15px;
+}
+
+.auth-close {
+  font-size: 21px;
+}
+
+/* Account center */
+.account-hero {
+  padding: 28px;
+}
+
+.account-avatar {
+  width: 90px;
+  height: 90px;
+  flex-basis: 90px;
+  font-size: 34px;
+}
+
+.account-hero__main h2 {
+  font-size: 30px;
+}
+
+.account-hero__main p {
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+.account-stats > div {
+  padding: 16px 18px;
+}
+
+.account-stats b {
+  font-size: 24px;
+}
+
+.account-stats span {
+  font-size: 11.5px;
+}
+
+.account-tabs {
+  padding: 5px;
+}
+
+.account-tabs button {
+  height: 34px;
+  padding: 0 16px;
+  font-size: 13px;
+}
+
+.account-card {
+  padding: 24px;
+}
+
+.account-card__head .mono {
+  font-size: 11px;
+}
+
+.account-card h3 {
+  font-size: 20px;
+}
+
+.account-card .auth-field > span {
+  font-size: 10.5px;
+}
+
+.account-card .input {
+  height: 43px;
+  font-size: 14.5px;
+}
+
+.account-muted {
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.account-card__note {
+  font-size: 11.5px;
+}
+
+.account-session {
+  padding: 12px 13px;
+}
+
+.account-session b {
+  font-size: 13.5px;
+}
+
+.account-session span {
+  font-size: 12px;
+}
+
+.account-current {
+  font-size: 9.5px;
+  padding: 3px 6px;
+}
+
+.account-notice {
+  font-size: 12.5px;
+  padding: 10px 12px;
+}
+
+/* Canvas */
+.tool-btn {
+  height: 34px;
+  font-size: 13px;
+  padding: 0 12px;
+}
+
+.canvas-save-state {
+  font-size: 11px;
+}
+
+.node__title {
+  font-size: 12px;
+}
+
+.node__state {
+  font-size: 9px;
+  padding: 3px 6px;
+}
+
+.node__body textarea,
+.node__body input {
+  font-size: 13px;
+}
+
+.node__hint {
+  font-size: 11.5px;
+}
+
+.node__foot {
+  font-size: 11px;
+}
+
+.node__action {
+  height: 30px;
+  font-size: 11.5px;
+  padding: 0 9px;
+}
+
+.node__select {
+  height: 32px;
+  font-size: 12px;
+}
+
+.node__drop {
+  font-size: 11.5px;
+}
+
+.canvas-menu {
+  width: 260px;
+}
+
+.canvas-menu__label {
+  font-size: 10px;
+}
+
+.canvas-menu__item {
+  font-size: 13px;
+  padding: 9px 9px;
+}
+
+.canvas-menu__item em {
+  font-size: 9.5px;
+}
+
+.canvas-outline__head .mono {
+  font-size: 10.5px;
+}
+
+.canvas-outline__item {
+  font-size: 12.5px;
+  padding: 8px;
+}
+
+.canvas-outline__item .mono {
+  font-size: 10px;
+}
+
+.canvas-outline__groups button {
+  font-size: 11.5px;
+}
+
+.canvas-tip {
+  font-size: 11.5px;
+}
+
+.canvas-zoom span {
+  font-size: 12px;
+}
+
+.canvas-sync-banner {
+  font-size: 12.5px;
+}
+
+.canvas-mobile-note {
+  font-size: 12px;
+}
+
+.project-save label span {
+  font-size: 11px;
+}
+
+.project-current b {
+  font-size: 15px;
+}
+
+.project-current > span:last-child,
+.project-item__main span {
+  font-size: 11.5px;
+}
+
+.project-item__main b {
+  font-size: 13.5px;
+}
+
+.ui-dialog__head h2 {
+  font-size: 25px;
+}
+
+.ui-dialog__head p {
+  font-size: 13px;
+}
+
+.shortcut-row {
+  font-size: 12.5px;
+}
+
+.shortcut-row kbd {
+  font-size: 10px;
+}
+
+/* Content cards / labels */
+.card p,
+.steps p,
+.tool-card p,
+.model-mini p {
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.bento__item p {
+  font-size: 14px;
+}
+
+.bento__item h3 {
+  font-size: 18px;
+}
+
+.model-card > p,
+.model-card__specs b {
+  font-size: 13.5px;
+}
+
+.model-card__specs span {
+  font-size: 10.5px;
+}
+
+.model-card h3,
+.model-mini h3 {
+  font-size: 18px;
+}
+
+.model-card__vendor,
+.model-mini__top .mono,
+.model-mini__foot .mono {
+  font-size: 11px;
+}
+
+.tool-link b {
+  font-size: 14px;
+}
+
+.tool-link .mono,
+.model-mini__top .mono {
+  font-size: 10.5px;
+}
+
+.price li,
+.faq details p {
+  font-size: 14px;
+}
+
+.footer ul,
+.footer__desc {
+  font-size: 13.5px;
+}
+
+.footer__bottom {
+  font-size: 12.5px;
+}
+
+.page-head .lede {
+  font-size: 16px;
+}
+
+.model-count,
+.model-filters .chip {
+  font-size: 12.5px;
+}
+
+@media (max-width: 620px) {
+  body {
+    font-size: 15.5px;
+  }
+
+  .auth-dialog--compact .auth-dialog__intro h2 {
+    font-size: 25px;
+  }
+
+  .account-hero__main h2 {
+    font-size: 25px;
+  }
+
+  .account-stats b {
+    font-size: 21px;
+  }
+}

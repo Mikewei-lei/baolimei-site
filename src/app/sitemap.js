@@ -11,6 +11,8 @@ export default function sitemap() {
     { url: '/', priority: 1, changeFrequency: 'weekly' },
     { url: '/studio', priority: 0.9, changeFrequency: 'weekly' },
     { url: '/canvas', priority: 0.9, changeFrequency: 'monthly' },
+    { url: '/models', priority: 0.9, changeFrequency: 'monthly' },
+    { url: '/works', priority: 0.7, changeFrequency: 'monthly' },
     { url: '/library', priority: 0.6, changeFrequency: 'monthly' },
     { url: '/pricing', priority: 0.8, changeFrequency: 'monthly' },
     { url: '/about', priority: 0.6, changeFrequency: 'yearly' },

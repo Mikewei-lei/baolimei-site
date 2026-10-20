@@ -5,6 +5,8 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { models, modelById, styles } from '@/lib/models';
 import { KEYS, readJSON, writeJSON, pushInbox, uid, timeAgo } from '@/lib/store';
+import { useAuth } from '@/components/auth/AuthProvider';
+import { apiFetch, uploadAssetFile } from '@/lib/api';
 import {
   Spark,
   Download,
@@ -24,6 +26,7 @@ const RATIOS = ['16:9', '9:16', '1:1', '4:3', '3:4', '2.39:1', '21:9'];
 export default function StudioClient() {
   const params = useSearchParams();
   const search = params.toString();
+  const { user, openAuth } = useAuth();
   const applied = useRef(false);
   const [prompt, setPrompt] = useState('');
   const [modelId, setModelId] = useState('blm-cinema-1');
@@ -34,6 +37,7 @@ export default function StudioClient() {
   const [seed, setSeed] = useState('');
   const [count, setCount] = useState(2);
   const [image, setImage] = useState('');
+  const [imageAssetId, setImageAssetId] = useState('');
   const [busy, setBusy] = useState(false);
   const [sessions, setSessions] = useState([]);
   const [toasts, setToasts] = useState([]);
@@ -69,10 +73,14 @@ export default function StudioClient() {
     if (applied.current) return;
     const p = params.get('prompt');
     const r = params.get('ratio');
+    const requestedModel = params.get('model');
     if (p) setPrompt(p.slice(0, 800));
     if (r && RATIOS.includes(r)) setRatio(r);
     if (params.get('mode') === 'image') {
       setModelId('flux-1-1-pro');
+    }
+    if (requestedModel && models.some((m) => m.id === requestedModel)) {
+      setModelId(requestedModel);
     }
     applied.current = true;
     // 只在首次加载时同步 URL 参数，之后不再覆盖用户输入
@@ -121,29 +129,69 @@ export default function StudioClient() {
   );
 
   const poll = useCallback(
-    (key, jobId, attempt = 0) => {
+    (key, jobId, attempt = 0, networkErrors = 0) => {
       const timer = setTimeout(async () => {
+        timers.current.delete(timer);
         try {
-          const res = await fetch(`/api/generate?job=${encodeURIComponent(jobId)}`, { cache: 'no-store' });
-          const data = await res.json();
+          const { job } = await apiFetch(`/api/jobs/${encodeURIComponent(jobId)}`);
           if (!mounted.current) return;
-          if (!res.ok) throw new Error(data?.error || '生成失败');
-          if (data.status === 'succeeded') {
-            updateSession(key, { status: 'succeeded', progress: 100, result: data.result, mock: data.mock });
+          if (job.status === 'succeeded' && job.result) {
+            const ratio = job.params?.ratio || '16:9';
+            const [rw, rh] = String(ratio).includes(':')
+              ? String(ratio).split(':').map(Number)
+              : [16, 9];
+            const width = 1280;
+            const height = Math.round((width * (rh || 9)) / (rw || 16));
+            updateSession(key, {
+              status: 'succeeded',
+              progress: 100,
+              resultAssetId: job.result.assetId,
+              result: {
+                items: [
+                  {
+                    seed: job.id.slice(0, 8),
+                    type: job.result.kind,
+                    preview: false,
+                    assetId: job.result.assetId,
+                    url: job.result.url,
+                    width,
+                    height,
+                  },
+                ],
+              },
+            });
             setBusy(false);
-            toast(data.mock ? '生成完成（演示占位画面）' : '生成完成');
+            toast('生成完成，结果已写入素材库');
             return;
           }
-          updateSession(key, { status: 'running', progress: data.progress || 10 });
-          if (attempt > 240) throw new Error('生成超时，请重试');
-          poll(key, jobId, attempt + 1);
+          if (job.status === 'failed' || job.status === 'cancelled') {
+            updateSession(key, {
+              status: 'error',
+              error: job.error || (job.status === 'cancelled' ? '任务已取消' : '生成失败'),
+              jobId: job.id,
+            });
+            setBusy(false);
+            toast(job.error || '生成失败');
+            return;
+          }
+          updateSession(key, {
+            status: job.status === 'queued' ? 'queued' : 'running',
+            progress: job.progress || 10,
+            jobId: job.id,
+          });
+          if (attempt > 300) throw new Error('生成超时，请重试');
+          poll(key, jobId, attempt + 1, 0);
         } catch (err) {
           if (!mounted.current) return;
+          if (!err.status && networkErrors < 3) {
+            poll(key, jobId, attempt + 1, networkErrors + 1);
+            return;
+          }
           updateSession(key, { status: 'error', error: err.message });
           setBusy(false);
           toast(err.message);
         }
-      }, attempt === 0 ? 500 : 800);
+      }, attempt === 0 ? 700 : 1000);
       timers.current.add(timer);
     },
     [toast, updateSession]
@@ -151,6 +199,11 @@ export default function StudioClient() {
 
   const generate = useCallback(async () => {
     if (busy) return;
+    if (!user) {
+      openAuth('login');
+      toast('登录后使用云端生成');
+      return;
+    }
     if (!prompt.trim()) {
       toast('请先描述你的镜头');
       return;
@@ -180,31 +233,37 @@ export default function StudioClient() {
     });
 
     try {
-      const res = await fetch('/api/generate', {
+      const data = await apiFetch('/api/jobs', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          prompt: session.prompt,
+        body: {
           model: modelId,
-          ratio,
-          duration,
-          resolution,
-          style,
-          count,
-          seed: seed ? Number(seed) : undefined,
-          image: image ? 'reference-uploaded' : undefined,
-        }),
+          kind:
+            model.kind === 'image'
+              ? 'text_to_image'
+              : imageAssetId
+                ? 'image_to_video'
+                : 'text_to_video',
+          prompt: session.prompt,
+          params: {
+            ratio,
+            duration,
+            resolution,
+            style,
+            seed: seed ? Number(seed) : undefined,
+            imageAssetId: imageAssetId || null,
+          },
+          idempotencyKey: `studio:${key}`,
+        },
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data?.error || '生成通道暂时不可用');
-      updateSession(key, { id: data.id, status: 'running', progress: 5, mock: data.mock, etaMs: data.etaMs });
-      poll(key, data.id);
+      const job = data.job;
+      updateSession(key, { id: job.id, jobId: job.id, status: 'queued', progress: 0 });
+      poll(key, job.id);
     } catch (err) {
       updateSession(key, { status: 'error', error: err.message });
       setBusy(false);
       toast(err.message);
     }
-  }, [busy, prompt, modelId, ratio, duration, resolution, style, count, seed, image, model.name, persist, poll, toast, updateSession]);
+  }, [busy, user, openAuth, prompt, modelId, ratio, duration, resolution, style, seed, count, imageAssetId, model.name, model.kind, persist, poll, toast, updateSession]);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -245,12 +304,37 @@ export default function StudioClient() {
     pushInbox({
       type: 'image',
       src: item.url,
+      assetId: item.assetId || null,
       prompt: session.prompt,
       model: session.modelName,
       ratio: session.ratio,
       seed: item.seed,
     });
     toast('已发送到画布，可在画布中打开');
+  };
+
+  const retrySession = async (session) => {
+    if (!session.jobId) {
+      toast('该记录没有可重试的云端任务，请重新生成');
+      return;
+    }
+    try {
+      const data = await apiFetch(`/api/jobs/${session.jobId}/retry`, { method: 'POST' });
+      const job = data.job;
+      updateSession(session.key, {
+        id: job.id,
+        jobId: job.id,
+        status: 'queued',
+        progress: 0,
+        error: null,
+        result: null,
+      });
+      setBusy(true);
+      poll(session.key, job.id);
+      toast('已重新提交生成任务');
+    } catch (err) {
+      toast(err.message || '重试失败');
+    }
   };
 
   const copy = async (text) => {
@@ -270,16 +354,30 @@ export default function StudioClient() {
     });
   };
 
-  const onUpload = (e) => {
+  const onUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (file.size > 6 * 1024 * 1024) {
-      toast('图片请小于 6MB');
+    if (file.size > 25 * 1024 * 1024) {
+      toast('图片请小于 25MB');
       return;
     }
-    const reader = new FileReader();
-    reader.onload = () => setImage(String(reader.result || ''));
-    reader.readAsDataURL(file);
+    if (user) {
+      try {
+        const asset = await uploadAssetFile(file);
+        setImage(asset.url);
+        setImageAssetId(asset.id);
+        toast('参考图已上传到云端');
+      } catch (err) {
+        toast(err.message || '参考图上传失败');
+      }
+    } else {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImage(String(reader.result || ''));
+        setImageAssetId('');
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const durationOptions = [3, 5, 8, 10, 12].filter((d) => d <= (model.maxDuration || 12));
@@ -340,7 +438,7 @@ export default function StudioClient() {
           {image ? (
             <div className="upload">
               <img src={image} alt="参考图预览" />
-              <button className="upload__clear" onClick={() => setImage('')} aria-label="移除参考图">
+              <button className="upload__clear" onClick={() => { setImage(''); setImageAssetId(''); }} aria-label="移除参考图">
                 ×
               </button>
             </div>
@@ -529,7 +627,12 @@ export default function StudioClient() {
 
                 {s.status === 'error' ? (
                   <div className="empty" style={{ padding: 24, borderColor: 'rgba(255,107,92,.4)' }}>
-                    {s.error || '生成失败'}
+                    <div>{s.error || '生成失败'}</div>
+                    <div style={{ marginTop: 14 }}>
+                      <button type="button" className="btn btn--ghost btn--sm" onClick={() => retrySession(s)}>
+                        <Refresh width="13" height="13" /> 重试任务
+                      </button>
+                    </div>
                   </div>
                 ) : s.status === 'succeeded' ? (
                   <div className="results">

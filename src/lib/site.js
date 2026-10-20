@@ -1,7 +1,7 @@
 export const site = {
   name: '葆历莓',
   nameEn: 'BAOLIMEI',
-  slogan: '一句话，一支片',
+  slogan: '一句话，一部电影',
   description:
     '葆历莓 BAOLIMEI 是面向创作者的 AI 影视创作平台：文生视频、图生视频、多镜头叙事与节点式无限画布，把灵感直接变成可交付的镜头。',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://baolimei.cn',
@@ -14,8 +14,9 @@ export const site = {
 
 export const nav = [
   { href: '/studio', label: '创作台' },
-  { href: '/canvas', label: '画布' },
+  { href: '/canvas', label: 'AI 画布' },
+  { href: '/models', label: '模型与工具' },
   { href: '/library', label: '作品库' },
-  { href: '/pricing', label: '价格' },
+  { href: '/pricing', label: '定价' },
   { href: '/about', label: '关于' },
 ];

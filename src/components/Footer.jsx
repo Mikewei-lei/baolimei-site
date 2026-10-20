@@ -6,9 +6,11 @@ const groups = [
     title: '产品',
     links: [
       { href: '/studio', label: '创作台' },
-      { href: '/canvas', label: '无限画布' },
+      { href: '/canvas', label: 'AI 无限画布' },
+      { href: '/models', label: '模型与工具' },
       { href: '/library', label: '作品库' },
-      { href: '/pricing', label: '价格与积分' },
+      { href: '/works', label: '品牌样片' },
+      { href: '/pricing', label: '定价与积分' },
     ],
   },
   {
@@ -38,7 +40,7 @@ export default function Footer() {
         <div className="footer__grid">
           <div>
             <Link href="/" className="brand">
-              <img className="brand__mark" src="/brand/logo.png" alt={`${site.name} logo`} width="32" height="32" />
+              <img className="brand__mark" src="/icon.png" alt={`${site.name} logo`} width="32" height="32" />
               <span className="brand__text">
                 <span className="brand__cn">{site.name}</span>
                 <span className="brand__en">{site.nameEn}</span>

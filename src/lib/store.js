@@ -2,6 +2,7 @@ export const KEYS = {
   history: 'blm_history_v1',
   canvas: 'blm_canvas_v1',
   inbox: 'blm_canvas_inbox_v1',
+  projects: 'blm_canvas_projects_v1',
 };
 
 export function readJSON(key, fallback) {
@@ -45,3 +46,5 @@ export function timeAgo(ts) {
   const d = Math.floor(h / 24);
   return `${d} 天前`;
 }
+
+export const CANVAS_PROJECTS_KEY = 'blm_canvas_projects_v1';

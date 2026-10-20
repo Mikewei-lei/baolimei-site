@@ -1,7 +1,81 @@
-# DEPLOYED — 生产部署状态（2026-10-19）
+# DEPLOYED — 生产部署状态（2026-10-20）
 
 > 本文记录**真实发生**的部署结果、验证证据、阻塞项与回滚方式。
 > 与 `DEPLOYMENT_CHECKLIST.md`（目标清单）区分：这里是"已经做到哪一步"。
+
+---
+
+## 0. 2026-10-20 前端升级发布
+
+| 项目 | 结果 |
+| --- | --- |
+| 发布版本 | `/opt/baolimei/releases/20261020-1032` |
+| 上一版本备份 | `/root/backup/baolimei/release-20261020-1031.tgz` |
+| 回滚副本 | `/opt/baolimei/releases/rollback-20261020-1031` |
+| 构建 | 服务端 `npm ci && npm run build`，17 个路由通过 |
+| 应用健康 | `127.0.0.1:3001/api/health` → `ok:true` |
+| Nginx Host 验证 | `Host: baolimei.cn` → 200 |
+| 新页面 | `/models`、`/works` → 200 |
+| 新静态资源 | `/work/hero.webp`、`/work/baolimei-original.mp4` → 200 |
+| 生成接口 | POST + GET 冒烟测试 → `succeeded`（demo） |
+| 公网域名 | 仍被阿里云 ICP 拦截，`baolimei.cn` / `www` 返回 403 |
+| IP 预览 | 仍为 401 Basic Auth，应用已指向新版本 |
+
+> 说明：本次只更新应用发布，未改 Nginx、DNS、证书与备案状态。
+
+---
+
+## 0.1 2026-10-20 Canvas 2.0 发布
+
+| 项目 | 结果 |
+| --- | --- |
+| 发布版本 | `/opt/baolimei/releases/20261020-1143` |
+| 上一版本备份 | `/root/backup/baolimei/release-20261020-1141.tgz` |
+| 回滚副本 | `/opt/baolimei/releases/rollback-20261020-1141` |
+| 服务端构建 | `npm ci && npm run build`，17 个路由通过 |
+| 应用健康 | `127.0.0.1:3001/api/health` → `ok:true` |
+| 画布页面 | `Host: baolimei.cn /canvas` → 200 |
+| 画布 CSS | `/_next/static/css/80e4d745a8cc657d.css` → 200，包含 `canvas-group` |
+| 本地 E2E | 多选、分组、拖动、右键菜单、项目快照、异步生成、上传 IndexedDB、失败重试、移动端全部通过 |
+| 公网域名 | 仍被阿里云 ICP 拦截，`baolimei.cn` / `www` 返回 403 |
+
+> 本次新增：画布分组、右键菜单、项目快照、模型/音频节点、节点状态与重试、IndexedDB 素材库、节点大纲、快捷键弹窗、移动端提示。
+
+---
+
+## 0.2 2026-10-20 正式后端（Task 3）部署
+
+| 项目 | 结果 |
+| --- | --- |
+| 发布版本 | `/opt/baolimei/releases/20261020-1724` |
+| 上一版本备份 | `/root/backup/baolimei/release-20261020-1321.tgz` |
+| 回滚副本 | `/opt/baolimei/releases/rollback-20261020-1321` |
+| PostgreSQL | 15.19，`postgresql-15.service`，监听 127.0.0.1:5432 |
+| Redis | 3.2，`redis.service`，监听 127.0.0.1:6379 |
+| 开发库 | `baolimei_dev` / `blm_dev` |
+| 预发布库 | `baolimei_staging` / `blm_staging` |
+| 生产库 | `baolimei_prod` / `blm_prod`，已执行迁移，Provider 仅 seed，Mock 关闭 |
+| 运行环境 | staging：`APP_ENV=staging`，Mock Provider / console SMS 仅用于 ICP 预览 |
+| 系统环境文件 | `/root/baolimei-secrets/app.env`（600） |
+| 生产环境模板 | `/root/baolimei-secrets/app.prod.env.example`（需配置真实短信 / S3 / AI Key） |
+| 应用健康 | `127.0.0.1:3001/api/health` → `database: ok`、`worker: true` |
+| 后端 E2E | 在 staging 真实执行：注册、会话、项目、画布、版本、素材、任务、取消、权限隔离、注销全部通过 |
+| 前端全栈 E2E | 浏览器连接 staging：注册、默认画布迁移、自动保存、刷新恢复、生成任务、项目保存全部通过，0 控制台错误 / 0 HTTP 4xx |
+| 备份 | 每日 03:15，数据库 dump + release + conf + 本地素材卷，保留 14 天 |
+| 公网域名 | 仍被阿里云 ICP 拦截，`baolimei.cn` / `www` 返回 403 |
+
+> 当前 3001 运行的是 **staging 预览配置**：`APP_ENV=staging`，允许 Mock 生成；短信已切换为阿里云真实通道。
+>
+> 2026-10-20 短信配置：
+> - Provider：`aliyun`
+> - 签名：当前按用户要求设为 `流花`；模板 `SMS_512576668`。`流花` 仍被运营商拒绝（PORT_NOT_REGISTERED / SP_UNKNOWN_ERROR），可靠回退签名：`广州流花科技`
+> - 模板：`SMS_512576668`
+> - AccessKeyId：已配置
+> - AccessKeySecret：仅存于 `/root/baolimei-secrets/app.env`（600），不写入仓库
+> - `ALLOW_DEV_SMS=0`、`ALLOW_DEV_SMS_RESPONSE=0`，接口不再返回验证码
+> - 用非法手机号调用阿里云返回 `isv.MOBILE_NUMBER_ILLEGAL`，证明 AK / 签名 / 模板已通过阿里云校验；真实手机号发送待验收
+>
+> 正式开放注册登录前，必须把 `app.env` 切换为生产配置：`MOCK_GENERATION_ENABLED=0`、S3/OSS、`COOKIE_SECURE=true`。
 
 ---
 

@@ -16,3 +16,14 @@ tools/tunnel.log
 
 # 临时分发目录（构建产物上传用）
 public/dl/
+
+# 本地 QA 截图与临时素材
+.shots/
+.tmp/
+scripts/__pycache__/
+
+# 后端本地运行产物
+.data/
+.tunnel*.log
+.tmp-db.env
+*.tsbuildinfo

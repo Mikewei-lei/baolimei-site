@@ -163,3 +163,48 @@ export function Refresh(props) {
     </svg>
   );
 }
+
+export function Folder(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" {...props}>
+      <path d="M3 7.5A2.5 2.5 0 015.5 5H10l2 2h6.5A2.5 2.5 0 0121 9.5v7A2.5 2.5 0 0118.5 19h-13A2.5 2.5 0 013 16.5v-9z" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function Alert(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" {...props}>
+      <path d="M12 4l9 16H3L12 4z" strokeLinejoin="round" />
+      <path d="M12 10v4M12 17.5v.1" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function Help(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M9.5 9.2a2.6 2.6 0 115 1.2c-.7.8-2.5 1.2-2.5 3.1" strokeLinecap="round" />
+      <path d="M12 17.4v.1" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function Close(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" {...props}>
+      <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function More(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <circle cx="5" cy="12" r="1.6" />
+      <circle cx="12" cy="12" r="1.6" />
+      <circle cx="19" cy="12" r="1.6" />
+    </svg>
+  );
+}
